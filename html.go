@@ -115,7 +115,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 /* ── MODALS ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.open{display:flex}
-.modal{background:white;border:1.5px solid var(--border);border-radius:20px;width:100%;max-width:540px;max-height:94vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:modalIn 0.22s cubic-bezier(0.34,1.56,0.64,1)}
+.modal{background:white;border:1.5px solid var(--border);border-radius:20px;width:100%;max-width:580px;max-height:94vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:modalIn 0.22s cubic-bezier(0.34,1.56,0.64,1)}
 @keyframes modalIn{from{opacity:0;transform:scale(0.94) translateY(10px)}to{opacity:1;transform:none}}
 .modal-sm{max-width:400px}
 .modal-header{padding:18px 20px 16px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;border-radius:20px 20px 0 0;z-index:1}
@@ -125,37 +125,22 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 .modal-close{background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;transition:all 0.12s}
 .modal-close:hover{background:var(--surface2);color:var(--text)}
 .modal-body{padding:16px 20px 18px}
-.modal-footer{padding:12px 20px;border-top:1.5px solid var(--border);display:flex;gap:8px;justify-content:space-between;align-items:center;background:var(--surface2);border-radius:0 0 20px 20px}
-
-/* ── WIZARD STEPS ── */
-.wizard-steps{display:flex;align-items:center;padding:14px 0 0;margin-bottom:16px}
-.wizard-step{display:flex;align-items:center;flex:1}
-.step-circle{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.2s;border:2px solid var(--border)}
-.step-circle.done{background:var(--accent);border-color:var(--accent);color:white}
-.step-circle.active{background:var(--accent);border-color:var(--accent);color:white;box-shadow:0 0 0 3px rgba(79,70,229,0.18)}
-.step-circle.pending{background:white;border-color:var(--border2);color:var(--text3)}
-.step-label{font-size:10.5px;font-weight:600;margin-left:5px;color:var(--text3);white-space:nowrap}
-.step-label.active{color:var(--accent)}
-.step-label.done{color:var(--text2)}
-.step-connector{flex:1;height:2px;background:var(--border);margin:0 5px;transition:background 0.2s}
-.step-connector.done{background:var(--accent)}
-.wizard-page{display:none}
-.wizard-page.active{display:block}
+.modal-footer{padding:12px 20px;border-top:1.5px solid var(--border);display:flex;gap:8px;justify-content:flex-end;align-items:center;background:var(--surface2);border-radius:0 0 20px 20px}
 
 /* ── FORM ── */
-.form-group{margin-bottom:13px}
+.form-group{margin-bottom:14px}
 .form-label{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.7px}
 .form-input,.form-select,.form-textarea{width:100%;background:white;border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--text);font-size:13.5px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border-color 0.15s,box-shadow 0.15s;-webkit-appearance:none}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,70,229,0.1)}
 .form-input::placeholder{color:var(--text3)}
 .form-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
-.form-textarea{min-height:90px;resize:vertical;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.6}
+.form-textarea{min-height:110px;resize:vertical;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.6}
 .pw-wrap{position:relative}
 .pw-wrap .form-input{padding-right:42px}
 .pw-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);padding:4px;font-size:14px;transition:color 0.12s}
 .pw-toggle:hover{color:var(--text2)}
-.time-row{display:flex;gap:10px}
-.time-row .form-group{flex:1}
+.time-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
 .choice-card{background:white;border:1.5px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;transition:all 0.15s;user-select:none;-webkit-tap-highlight-color:transparent}
 .choice-card:hover{border-color:var(--border2);background:var(--surface2)}
@@ -165,13 +150,13 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 .choice-card-sub{font-size:10px;color:var(--text3);margin-top:1px}
 .choice-card.selected .choice-card-label{color:var(--accent-text)}
 .choice-card.selected .choice-card-sub{color:var(--accent-text);opacity:0.7}
-.cron-preview{background:var(--accent-light);border:1.5px solid #c7d2fe;border-radius:10px;padding:11px 14px;margin:14px 0;display:flex;align-items:center;gap:9px}
+.cron-preview{background:var(--accent-light);border:1.5px solid #c7d2fe;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:9px;margin-bottom:6px}
 .cron-preview-label{font-size:9.5px;font-weight:700;color:var(--accent-text);text-transform:uppercase;letter-spacing:0.7px;white-space:nowrap}
 .cron-preview-val{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent-text);font-weight:500}
-.cron-human{font-size:12px;color:var(--text2);margin-top:5px;padding:7px 11px;background:var(--surface2);border-radius:7px;border:1px solid var(--border)}
-.info-box{font-size:12px;color:var(--text2);padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;margin-bottom:11px;line-height:1.5}
-.divider{height:1px;background:var(--border);margin:13px 0}
-.section-sub-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--text3);margin-bottom:9px}
+.cron-human{font-size:12px;color:var(--text2);padding:6px 11px;background:var(--surface2);border-radius:7px;border:1px solid var(--border);margin-bottom:14px}
+.divider{height:1px;background:var(--border);margin:16px 0}
+.section-block{margin-bottom:0}
+.section-block-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent-text);background:var(--accent-light);border:1px solid #c7d2fe;border-radius:8px;padding:5px 10px;margin-bottom:12px;display:inline-block}
 
 /* ── AUTH LOGIN ── */
 .login-wrap{display:flex;flex-direction:column;align-items:center;padding:8px 0 4px}
@@ -211,8 +196,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
   .modal-sm{border-radius:16px 16px 0 0;max-width:100%}
   .modal-header{border-radius:16px 16px 0 0}
   .choice-grid{grid-template-columns:1fr 1fr}
-  .wizard-steps{overflow-x:auto;padding-bottom:4px}
-  .step-label{display:none}
+  .time-row,.three-col{grid-template-columns:1fr 1fr}
   .header-actions .btn:not(.btn-primary) .btn-text{display:none}
   .btn-refresh-text{display:none}
 }
@@ -360,7 +344,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
   </main>
 </div>
 
-<!-- ── JOB MODAL (Add/Edit Wizard) ── -->
+<!-- ── JOB MODAL (Single-page form) ── -->
 <div class="modal-overlay" id="job-modal">
   <div class="modal">
     <div class="modal-header">
@@ -370,34 +354,21 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
       </div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div style="padding:0 20px">
-      <div class="wizard-steps" id="wizard-steps">
-        <div class="wizard-step">
-          <div class="step-circle active" id="sc-0">1</div>
-          <div class="step-label active" id="sl-0" data-i18n="step_time"></div>
-        </div>
-        <div class="step-connector" id="conn-0"></div>
-        <div class="wizard-step">
-          <div class="step-circle pending" id="sc-1">2</div>
-          <div class="step-label" id="sl-1" data-i18n="step_freq"></div>
-        </div>
-        <div class="step-connector" id="conn-1"></div>
-        <div class="wizard-step">
-          <div class="step-circle pending" id="sc-2">3</div>
-          <div class="step-label" id="sl-2" data-i18n="step_cmd"></div>
-        </div>
-        <div class="step-connector" id="conn-2"></div>
-        <div class="wizard-step">
-          <div class="step-circle pending" id="sc-3">4</div>
-          <div class="step-label" id="sl-3" data-i18n="step_confirm"></div>
-        </div>
-      </div>
-    </div>
     <div class="modal-body">
 
-      <!-- Step 1: Time -->
-      <div class="wizard-page active" id="page-0">
-        <div class="section-sub-label" data-i18n="step1_heading"></div>
+      <!-- ① 任务名称 -->
+      <div class="section-block">
+        <div class="section-block-title" data-i18n="step_name"></div>
+        <div class="form-group" style="margin-bottom:0">
+          <input type="text" class="form-input" id="f-comment" data-i18n-placeholder="ph_comment" style="font-size:14px;font-weight:500;">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ③ 执行时间 -->
+      <div class="section-block">
+        <div class="section-block-title" data-i18n="step_time"></div>
         <div class="time-row">
           <div class="form-group">
             <label class="form-label" data-i18n="lbl_hour"></label>
@@ -410,9 +381,12 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
         </div>
       </div>
 
-      <!-- Step 2: Frequency -->
-      <div class="wizard-page" id="page-1">
-        <div class="section-sub-label" data-i18n="step2_heading"></div>
+      <div class="divider"></div>
+
+      <!-- ④ 执行频率 -->
+      <div class="section-block">
+        <div class="section-block-title" data-i18n="step_freq"></div>
+
         <div class="form-group">
           <label class="form-label" data-i18n="lbl_day_type"></label>
           <div class="choice-grid" id="day-type-grid">
@@ -441,8 +415,8 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
           <label class="form-label" data-i18n="lbl_day_of_month"></label>
           <input type="number" class="form-input" id="f-monthday" min="1" max="31" value="1" oninput="updatePreview()">
         </div>
-        <div class="divider"></div>
-        <div class="form-group">
+
+        <div class="form-group" style="margin-bottom:10px">
           <label class="form-label" data-i18n="lbl_month_type"></label>
           <div class="choice-grid" id="month-type-grid">
             <div class="choice-card selected" data-val="every-month" onclick="selectMonthType('every-month',this)">
@@ -477,8 +451,8 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
             <option value="11" data-i18n="m11"></option><option value="12" data-i18n="m12"></option>
           </select>
         </div>
-        <div class="divider"></div>
-        <div class="form-group">
+
+        <div class="form-group" style="margin-bottom:10px">
           <label class="form-label" data-i18n="lbl_week_type"></label>
           <div class="choice-grid" id="week-type-grid">
             <div class="choice-card selected" data-val="every-week" onclick="selectWeekType('every-week',this)">
@@ -511,8 +485,8 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
             <option value="6" data-i18n="wd6"></option>
           </select>
         </div>
-        <div class="divider"></div>
-        <div class="form-group">
+
+        <div class="form-group" style="margin-bottom:6px">
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2)">
             <input type="checkbox" id="use-custom" onchange="toggleCustom()" style="width:14px;height:14px;accent-color:var(--accent)">
             <span data-i18n="use_custom_cron"></span>
@@ -523,10 +497,20 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
           <input type="text" class="form-input" id="f-custom" placeholder="* * * * *" style="font-family:'IBM Plex Mono',monospace;font-size:13px" oninput="updatePreview()">
           <div style="font-size:11px;color:var(--text3);margin-top:4px" data-i18n="custom_hint"></div>
         </div>
+
+        <!-- Cron preview inline -->
+        <div class="cron-preview">
+          <div class="cron-preview-label">CRON</div>
+          <div class="cron-preview-val" id="cron-preview-val">0 0 * * *</div>
+        </div>
+        <div class="cron-human" id="cron-human"></div>
       </div>
 
-      <!-- Step 3: Command -->
-      <div class="wizard-page" id="page-2">
+      <div class="divider"></div>
+
+      <!-- ⑤ 命令 -->
+      <div class="section-block">
+        <div class="section-block-title" data-i18n="step_cmd"></div>
         <div class="form-group">
           <label class="form-label" data-i18n="lbl_cmd_type"></label>
           <select class="form-select" id="f-cmd-type" onchange="updateCmdType()">
@@ -554,31 +538,12 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
             <div style="font-size:11px;color:var(--text3);margin-top:4px" data-i18n="script_note"></div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label"><span data-i18n="lbl_comment"></span> <span style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--text3)" data-i18n="optional"></span></label>
-          <input type="text" class="form-input" id="f-comment" data-i18n-placeholder="ph_comment">
-        </div>
-      </div>
-
-      <!-- Step 4: Confirm -->
-      <div class="wizard-page" id="page-3">
-        <div class="section-sub-label" data-i18n="step4_heading"></div>
-        <div class="cron-preview">
-          <div class="cron-preview-label">CRON</div>
-          <div class="cron-preview-val" id="cron-preview-val">0 0 * * *</div>
-        </div>
-        <div class="cron-human" id="cron-human"></div>
-        <div class="divider"></div>
-        <div id="confirm-details" style="font-size:13px;color:var(--text2);line-height:1.8"></div>
       </div>
 
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost btn-sm" id="btn-back" onclick="wizardBack()" style="display:none" data-i18n="btn_back"></button>
-      <div style="display:flex;gap:7px;margin-left:auto">
-        <button class="btn btn-ghost btn-sm" onclick="closeModal()" data-i18n="btn_cancel"></button>
-        <button class="btn btn-primary btn-sm" id="btn-next" onclick="wizardNext()" data-i18n="btn_next"></button>
-      </div>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()" data-i18n="btn_cancel"></button>
+      <button class="btn btn-primary btn-sm" id="btn-submit" onclick="submitJob()" data-i18n="btn_confirm"></button>
     </div>
   </div>
 </div>
@@ -590,7 +555,7 @@ const I18N={
     sub:'定时任务管理器',nav_features:'功能',nav_dashboard:'仪表盘',nav_add:'添加任务',
     status_running:'服务运行中',
     dashboard_title:'仪表盘',dashboard_sub:'管理您的 Linux Crontab 定时任务',
-    btn_refresh:'刷新',btn_add:'添加任务',btn_back:'上一步',btn_next:'下一步',btn_cancel:'取消',btn_save:'保存',
+    btn_refresh:'刷新',btn_add:'添加任务',btn_cancel:'取消',btn_confirm:'确认',btn_save:'保存',
     btn_login:'登 录',btn_logout:'退出',
     lbl_username:'用户名',lbl_password:'密码',
     ph_username:'请输入用户名',ph_password:'请输入密码',
@@ -603,8 +568,7 @@ const I18N={
     job_list_title:'任务列表',
     refreshed_at:'更新于 ',
     empty_title:'暂无定时任务',empty_sub:'点击右上角「添加任务」开始',
-    step_time:'时间',step_freq:'频率',step_cmd:'命令',step_confirm:'确认',
-    step1_heading:'执行时间',step2_heading:'执行频率',step4_heading:'确认配置',
+    step_time:'执行时间',step_freq:'执行频率',step_cmd:'执行命令',step_name:'任务名称',
     lbl_hour:'小时 (0-23)',lbl_minute:'分钟 (0-59)',
     lbl_day_type:'每几天',lbl_month_type:'每几月',lbl_week_type:'每几周',
     opt_daily:'每天',opt_daily_sub:'每天执行',
@@ -626,7 +590,7 @@ const I18N={
     cmd_direct:'直接命令',cmd_script_path:'Shell 脚本路径',cmd_script_content:'编写 Shell 脚本',
     ph_command:'/usr/bin/python3 /home/user/script.py',
     ph_script_path:'/home/user/backup.sh',ph_script_content:'#!/bin/bash\necho Hello',
-    ph_comment:'任务描述，便于识别...',script_note:'脚本将保存到服务器并自动执行',
+    ph_comment:'给这个任务起个名字，便于识别...',script_note:'脚本将保存到程序目录的 cronpanel-scripts/ 文件夹并自动执行',
     modal_add:'添加定时任务',modal_edit:'编辑定时任务',
     confirm_delete:'确认删除该任务？此操作不可撤销。',
     btn_enable:'启用',btn_disable:'停用',btn_edit:'编辑',btn_delete:'删除',
@@ -637,13 +601,12 @@ const I18N={
     wd0:'周日',wd1:'周一',wd2:'周二',wd3:'周三',wd4:'周四',wd5:'周五',wd6:'周六',
     human_daily:'每天 {H}:{M} 执行',human_interval:'每 {D} 天 {H}:{M} 执行',
     human_specific_day:'每月 {MD} 日 {H}:{M} 执行',human_custom:'自定义: {E}',
-    confirm_cmd:'命令',confirm_comment:'备注',confirm_cron:'Cron 表达式',
   },
   en:{
     sub:'Cron Job Manager',nav_features:'Menu',nav_dashboard:'Dashboard',nav_add:'Add Job',
     status_running:'Service running',
     dashboard_title:'Dashboard',dashboard_sub:'Manage your Linux Crontab jobs',
-    btn_refresh:'Refresh',btn_add:'Add Job',btn_back:'Back',btn_next:'Next',btn_cancel:'Cancel',btn_save:'Save',
+    btn_refresh:'Refresh',btn_add:'Add Job',btn_cancel:'Cancel',btn_confirm:'Confirm',btn_save:'Save',
     btn_login:'Log In',btn_logout:'Logout',
     lbl_username:'Username',lbl_password:'Password',
     ph_username:'Enter username',ph_password:'Enter password',
@@ -656,8 +619,7 @@ const I18N={
     job_list_title:'Job List',
     refreshed_at:'Updated at ',
     empty_title:'No cron jobs yet',empty_sub:'Click "Add Job" to get started',
-    step_time:'Time',step_freq:'Frequency',step_cmd:'Command',step_confirm:'Confirm',
-    step1_heading:'Execution Time',step2_heading:'Frequency',step4_heading:'Review & Confirm',
+    step_time:'Execution Time',step_freq:'Frequency',step_cmd:'Command',step_name:'Task Name',
     lbl_hour:'Hour (0-23)',lbl_minute:'Minute (0-59)',
     lbl_day_type:'Day Frequency',lbl_month_type:'Month Frequency',lbl_week_type:'Week Frequency',
     opt_daily:'Every Day',opt_daily_sub:'Run daily',
@@ -679,7 +641,7 @@ const I18N={
     cmd_direct:'Direct Command',cmd_script_path:'Shell Script Path',cmd_script_content:'Write Shell Script',
     ph_command:'/usr/bin/python3 /home/user/script.py',
     ph_script_path:'/home/user/backup.sh',ph_script_content:'#!/bin/bash\necho Hello',
-    ph_comment:'Job description...',script_note:'Script will be saved on server and auto-executed',
+    ph_comment:'Give this job a name...',script_note:'Script saved to cronpanel-scripts/ next to the binary',
     modal_add:'Add Cron Job',modal_edit:'Edit Cron Job',
     confirm_delete:'Delete this job? This cannot be undone.',
     btn_enable:'Enable',btn_disable:'Disable',btn_edit:'Edit',btn_delete:'Delete',
@@ -690,7 +652,6 @@ const I18N={
     wd0:'Sun',wd1:'Mon',wd2:'Tue',wd3:'Wed',wd4:'Thu',wd5:'Fri',wd6:'Sat',
     human_daily:'Every day at {H}:{M}',human_interval:'Every {D} days at {H}:{M}',
     human_specific_day:'Day {MD} of each month at {H}:{M}',human_custom:'Custom: {E}',
-    confirm_cmd:'Command',confirm_comment:'Label',confirm_cron:'Cron expression',
   }
 };
 let lang='zh';
@@ -772,67 +733,75 @@ function closeSidebar(){
   document.getElementById('sidebar-overlay').classList.remove('open');
 }
 
-// ── Wizard ────────────────────────────────────────────────
-let currentStep=0,editingId=null,dayType='daily',monthType='every-month',weekType='every-week',useCustom=false;
-const TOTAL_STEPS=4;
+// ── Form state ────────────────────────────────────────────
+let editingId=null,dayType='daily',monthType='every-month',weekType='every-week',useCustom=false;
 
-function openJobModal(editJob){
+// Detect if a command is a CronPanel-generated script path
+function isManagedScript(cmd){
+  // Pattern: /bin/bash <path>/cronpanel-scripts/script_<digits>.sh
+  return /\/bin\/bash\s+.+\/cronpanel-scripts\/script_\d+\.sh$/.test(cmd);
+}
+
+async function openJobModal(editJob){
   editingId=editJob?editJob.id:null;
   document.getElementById('modal-title').textContent=editJob?t('modal_edit'):t('modal_add');
   document.getElementById('modal-icon').textContent=editJob?'✏️':'⏰';
-  editJob?prefillEdit(editJob):resetForm();
-  gotoStep(0);
+  document.getElementById('btn-submit').textContent=editJob?t('btn_save'):t('btn_confirm');
+  resetForm();
+  if(editJob) await prefillEdit(editJob);
   document.getElementById('job-modal').classList.add('open');
 }
 function closeModal(){document.getElementById('job-modal').classList.remove('open');editingId=null;}
 document.getElementById('job-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
-function prefillEdit(job){
-  resetForm();
+async function prefillEdit(job){
+  // Parse schedule
   const parts=job.schedule.split(/\s+/);
   if(parts.length===5){
     document.getElementById('f-minute').value=parts[0]==='*'?'0':parts[0];
     document.getElementById('f-hour').value=parts[1]==='*'?'0':parts[1];
     const[,, dom,mon,dow]=parts;
-    if(dom.startsWith('*/')&&mon==='*'&&dow==='*'){selectDayType('interval',document.querySelector('#day-type-grid [data-val="interval"]'));document.getElementById('f-days').value=dom.replace('*/','')}
+    if(dom.startsWith('*/')&&mon==='*'&&dow==='*'){selectDayType('interval',document.querySelector('#day-type-grid [data-val="interval"]'));document.getElementById('f-days').value=dom.replace('*/','');}
     else if(dom!=='*'&&mon==='*'&&dow==='*'){selectDayType('specific-day',document.querySelector('#day-type-grid [data-val="specific-day"]'));document.getElementById('f-monthday').value=dom;}
-    if(mon.startsWith('*/')){selectMonthType('month-interval',document.querySelector('#month-type-grid [data-val="month-interval"]'));document.getElementById('f-month-interval').value=mon.replace('*/','')}
+    if(mon.startsWith('*/')){selectMonthType('month-interval',document.querySelector('#month-type-grid [data-val="month-interval"]'));document.getElementById('f-month-interval').value=mon.replace('*/','');}
     else if(mon!=='*'){selectMonthType('specific-month',document.querySelector('#month-type-grid [data-val="specific-month"]'));document.getElementById('f-month').value=mon;}
     if(dow!=='*'){selectWeekType('specific-weekday',document.querySelector('#week-type-grid [data-val="specific-weekday"]'));document.getElementById('f-weekday').value=dow;}
   }
-  document.getElementById('f-command').value=job.command;
   document.getElementById('f-comment').value=job.comment||'';
-  document.getElementById('f-cmd-type').value='cmd';
-  updateCmdType();updatePreview();
-}
 
-function gotoStep(n){
-  currentStep=n;
-  document.querySelectorAll('.wizard-page').forEach((p,i)=>p.classList.toggle('active',i===n));
-  for(let i=0;i<TOTAL_STEPS;i++){
-    document.getElementById('sc-'+i).className='step-circle '+(i<n?'done':(i===n?'active':'pending'));
-    document.getElementById('sl-'+i).className='step-label '+(i<n?'done':(i===n?'active':''));
-    if(i<TOTAL_STEPS-1)document.getElementById('conn-'+i).className='step-connector '+(i<n?'done':'');
+  // Detect command type
+  if(isManagedScript(job.command)){
+    // It's a managed script — read the file content
+    document.getElementById('f-cmd-type').value='script-content';
+    updateCmdType();
+    try{
+      const res=await fetch('/api/jobs/read-script',{method:'POST',headers:authHeaders(),body:JSON.stringify({path:job.command})});
+      const data=await res.json();
+      if(data.success){
+        document.getElementById('f-script-content').value=data.data||'';
+      } else {
+        // File missing (e.g. moved); fall back to showing path
+        document.getElementById('f-cmd-type').value='cmd';
+        updateCmdType();
+        document.getElementById('f-command').value=job.command;
+        showToast('脚本文件未找到，已显示原始命令','error');
+      }
+    } catch(e){
+      document.getElementById('f-cmd-type').value='cmd';
+      updateCmdType();
+      document.getElementById('f-command').value=job.command;
+    }
+  } else if(/^\/bin\/bash\s+/.test(job.command)){
+    // External script path
+    document.getElementById('f-cmd-type').value='script-path';
+    updateCmdType();
+    document.getElementById('f-script-path').value=job.command.replace(/^\/bin\/bash\s+/,'');
+  } else {
+    document.getElementById('f-cmd-type').value='cmd';
+    updateCmdType();
+    document.getElementById('f-command').value=job.command;
   }
-  document.getElementById('btn-back').style.display=n>0?'':'none';
-  const btnNext=document.getElementById('btn-next');
-  btnNext.textContent=n===TOTAL_STEPS-1?t('btn_save'):t('btn_next');
-  if(n===TOTAL_STEPS-1)buildConfirmPage();
   updatePreview();
-}
-function wizardBack(){if(currentStep>0)gotoStep(currentStep-1);}
-function wizardNext(){
-  if(currentStep===TOTAL_STEPS-1){submitJob();return;}
-  if(currentStep===2){
-    const ct=document.getElementById('f-cmd-type').value;
-    const ok=ct==='cmd'?!!document.getElementById('f-command').value.trim():ct==='script-path'?!!document.getElementById('f-script-path').value.trim():!!document.getElementById('f-script-content').value.trim();
-    if(!ok){showToast(t('toast_err_empty_cmd'),'error');return;}
-  }
-  if(currentStep===1&&useCustom){
-    const cron=document.getElementById('f-custom').value.trim();
-    if(!cron||cron.split(/\s+/).length!==5){showToast(t('toast_err_cron'),'error');return;}
-  }
-  gotoStep(currentStep+1);
 }
 
 function selectDayType(val,el){dayType=val;document.querySelectorAll('#day-type-grid .choice-card').forEach(c=>c.classList.remove('selected'));if(el)el.classList.add('selected');document.getElementById('day-interval-row').style.display=val==='interval'?'':'none';document.getElementById('day-specific-row').style.display=val==='specific-day'?'':'none';updatePreview();}
@@ -862,32 +831,29 @@ function getHumanCron(expr){
   if(dom!=='*')return t('human_specific_day').replace('{MD}',dom).replace('{H}',H).replace('{M}',M);
   return t('human_custom').replace('{E}',expr);
 }
-function updatePreview(){const el=document.getElementById('cron-preview-val');if(el)el.textContent=getCronExpr();}
-function buildConfirmPage(){
+function updatePreview(){
   const expr=getCronExpr();
-  document.getElementById('cron-preview-val').textContent=expr;
-  document.getElementById('cron-human').textContent=getHumanCron(expr);
-  const ct=document.getElementById('f-cmd-type').value;
-  let cmd=ct==='cmd'?document.getElementById('f-command').value:ct==='script-path'?document.getElementById('f-script-path').value:'['+t('cmd_script_content')+']';
-  const comment=document.getElementById('f-comment').value;
-  document.getElementById('confirm-details').innerHTML=
-    '<b>'+t('confirm_cron')+':</b> <code style="font-family:IBM Plex Mono,monospace;font-size:11.5px;background:#f1f5f9;padding:1px 6px;border-radius:4px">'+escHtml(expr)+'</code><br>'+
-    '<b>'+t('confirm_cmd')+':</b> <span style="font-family:IBM Plex Mono,monospace;font-size:11.5px;color:#4f46e5">'+escHtml(cmd)+'</span>'+(comment?'<br><b>'+t('confirm_comment')+':</b> '+escHtml(comment):'');
+  const pv=document.getElementById('cron-preview-val');if(pv)pv.textContent=expr;
+  const ch=document.getElementById('cron-human');if(ch)ch.textContent=getHumanCron(expr);
 }
 
 async function submitJob(){
   const ct=document.getElementById('f-cmd-type').value;
   let command='',scriptPath='',scriptContent='';
-  if(ct==='cmd')command=document.getElementById('f-command').value.trim();
-  else if(ct==='script-path')scriptPath=document.getElementById('f-script-path').value.trim();
+  if(ct==='cmd') command=document.getElementById('f-command').value.trim();
+  else if(ct==='script-path') scriptPath=document.getElementById('f-script-path').value.trim();
   else scriptContent=document.getElementById('f-script-content').value.trim();
+  // Validate
+  const ok=ct==='cmd'?!!command:ct==='script-path'?!!scriptPath:!!scriptContent;
+  if(!ok){showToast(t('toast_err_empty_cmd'),'error');return;}
+  if(useCustom){const cron=document.getElementById('f-custom').value.trim();if(!cron||cron.split(/\s+/).length!==5){showToast(t('toast_err_cron'),'error');return;}}
   const body={mode:'custom',customCron:getCronExpr(),
     days:document.getElementById('f-days').value||'2',weekday:document.getElementById('f-weekday').value||'0',
     monthDay:document.getElementById('f-monthday').value||'1',month:document.getElementById('f-month').value||'*',
     hour:document.getElementById('f-hour').value||'0',minute:document.getElementById('f-minute').value||'0',
     comment:document.getElementById('f-comment').value.trim(),command,scriptPath,scriptContent};
-  if(editingId)body.id=editingId;
-  const btn=document.getElementById('btn-next');btn.disabled=true;
+  if(editingId) body.id=editingId;
+  const btn=document.getElementById('btn-submit');btn.disabled=true;
   try{
     const url=editingId?'/api/jobs/edit':'/api/jobs/add';
     const res=await fetch(url,{method:'POST',headers:authHeaders(),body:JSON.stringify(body)});
@@ -896,11 +862,15 @@ async function submitJob(){
     if(data.success){showToast(editingId?t('toast_saved'):t('toast_added'),'success');closeModal();loadJobs();}
     else showToast(data.message||'Error','error');
   } catch(e){showToast(e.message,'error');}
-  finally{btn.disabled=false;btn.textContent=t('btn_save');}
+  finally{btn.disabled=false;btn.textContent=editingId?t('btn_save'):t('btn_confirm');}
 }
 
 function resetForm(){
-  ['f-hour','f-minute','f-days','f-monthday','f-month-interval','f-month','f-week-interval','f-weekday'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=id.endsWith('hour')||id.endsWith('minute')?'0':id.endsWith('days')||id.endsWith('interval')?'2':id==='f-monthday'?'1':id==='f-month'?'1':'0';});
+  ['f-hour','f-minute'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='0';});
+  ['f-days','f-month-interval','f-week-interval'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='2';});
+  const md=document.getElementById('f-monthday');if(md)md.value='1';
+  const mo=document.getElementById('f-month');if(mo)mo.value='1';
+  const wd=document.getElementById('f-weekday');if(wd)wd.value='0';
   ['f-command','f-script-path','f-script-content','f-comment','f-custom'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('use-custom').checked=false;document.getElementById('f-cmd-type').value='cmd';
   useCustom=false;document.getElementById('custom-cron-row').style.display='none';updateCmdType();
@@ -973,7 +943,7 @@ async function toggleJob(id){
 
 // ── Helpers ───────────────────────────────────────────────
 function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function escAttr(s){return String(s||'').replace(/['"\\]/g,c=>'\\'+c);}
+function escAttr(s){return String(s||'').replace(/['\"\\]/g,c=>'\\'+c);}
 let toastTimer;
 function showToast(msg,type){
   const ex=document.querySelector('.toast');if(ex)ex.remove();clearTimeout(toastTimer);
