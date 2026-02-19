@@ -206,6 +206,26 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
   .job-actions .btn-sm{font-size:11px;padding:5px 6px}
 }
 
+/* ── LOG TOGGLE ── */
+.log-toggle-wrap{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.15s;user-select:none}
+.log-toggle-wrap:hover{border-color:var(--border2)}
+.log-toggle-wrap.active{background:#f0fdf4;border-color:#86efac}
+.log-toggle{position:relative;width:36px;height:20px;flex-shrink:0}
+.log-toggle input{opacity:0;width:0;height:0;position:absolute}
+.log-toggle-slider{position:absolute;inset:0;background:#cbd5e1;border-radius:20px;transition:background 0.2s}
+.log-toggle-slider:before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:white;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.log-toggle input:checked + .log-toggle-slider{background:#22c55e}
+.log-toggle input:checked + .log-toggle-slider:before{transform:translateX(16px)}
+.log-toggle-text{flex:1}
+.log-toggle-title{font-size:13px;font-weight:600;color:var(--text)}
+.log-toggle-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.log-toggle-wrap.active .log-toggle-title{color:#15803d}
+.log-toggle-wrap.active .log-toggle-sub{color:#16a34a}
+
+/* ── LOG BUTTON IN JOB CARD ── */
+.btn-log{background:#f0fdf4;color:#15803d;border:1.5px solid #86efac}
+.btn-log:hover{background:#dcfce7;border-color:#4ade80}
+
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
@@ -540,6 +560,23 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
         </div>
       </div>
 
+      <div class="divider"></div>
+
+      <!-- ⑥ 运行日志 -->
+      <div class="section-block">
+        <div class="section-block-title" data-i18n="step_log"></div>
+        <label class="log-toggle-wrap" id="log-toggle-wrap" onclick="toggleLogWrap()">
+          <div class="log-toggle">
+            <input type="checkbox" id="f-log" onclick="event.stopPropagation()">
+            <span class="log-toggle-slider"></span>
+          </div>
+          <div class="log-toggle-text">
+            <div class="log-toggle-title" data-i18n="log_enable_title"></div>
+            <div class="log-toggle-sub" data-i18n="log_enable_sub"></div>
+          </div>
+        </label>
+      </div>
+
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="closeModal()" data-i18n="btn_cancel"></button>
@@ -568,7 +605,9 @@ const I18N={
     job_list_title:'任务列表',
     refreshed_at:'更新于 ',
     empty_title:'暂无定时任务',empty_sub:'点击右上角「添加任务」开始',
-    step_time:'执行时间',step_freq:'执行频率',step_cmd:'执行命令',step_name:'任务名称',
+    step_time:'执行时间',step_freq:'执行频率',step_cmd:'执行命令',step_name:'任务名称',step_log:'运行日志',
+    log_enable_title:'保存运行日志',log_enable_sub:'日志将保存到程序目录的 cronpanel-logs/ 文件夹',
+    btn_log:'查看日志',
     lbl_hour:'小时 (0-23)',lbl_minute:'分钟 (0-59)',
     lbl_day_type:'每几天',lbl_month_type:'每几月',lbl_week_type:'每几周',
     opt_daily:'每天',opt_daily_sub:'每天执行',
@@ -619,7 +658,9 @@ const I18N={
     job_list_title:'Job List',
     refreshed_at:'Updated at ',
     empty_title:'No cron jobs yet',empty_sub:'Click "Add Job" to get started',
-    step_time:'Execution Time',step_freq:'Frequency',step_cmd:'Command',step_name:'Task Name',
+    step_time:'Execution Time',step_freq:'Frequency',step_cmd:'Command',step_name:'Task Name',step_log:'Run Log',
+    log_enable_title:'Save run log',log_enable_sub:'Logs saved to cronpanel-logs/ next to the binary',
+    btn_log:'View Log',
     lbl_hour:'Hour (0-23)',lbl_minute:'Minute (0-59)',
     lbl_day_type:'Day Frequency',lbl_month_type:'Month Frequency',lbl_week_type:'Week Frequency',
     opt_daily:'Every Day',opt_daily_sub:'Run daily',
@@ -768,6 +809,10 @@ async function prefillEdit(job){
     if(dow!=='*'){selectWeekType('specific-weekday',document.querySelector('#week-type-grid [data-val="specific-weekday"]'));document.getElementById('f-weekday').value=dow;}
   }
   document.getElementById('f-comment').value=job.comment||'';
+  // Prefill log toggle
+  const logCb=document.getElementById('f-log');
+  logCb.checked=!!job.log;
+  document.getElementById('log-toggle-wrap').classList.toggle('active',!!job.log);
 
   // Detect command type
   if(isManagedScript(job.command)){
@@ -851,7 +896,9 @@ async function submitJob(){
     days:document.getElementById('f-days').value||'2',weekday:document.getElementById('f-weekday').value||'0',
     monthDay:document.getElementById('f-monthday').value||'1',month:document.getElementById('f-month').value||'*',
     hour:document.getElementById('f-hour').value||'0',minute:document.getElementById('f-minute').value||'0',
-    comment:document.getElementById('f-comment').value.trim(),command,scriptPath,scriptContent};
+    comment:document.getElementById('f-comment').value.trim(),
+    log:document.getElementById('f-log').checked,
+    command,scriptPath,scriptContent};
   if(editingId) body.id=editingId;
   const btn=document.getElementById('btn-submit');btn.disabled=true;
   try{
@@ -872,6 +919,8 @@ function resetForm(){
   const mo=document.getElementById('f-month');if(mo)mo.value='1';
   const wd=document.getElementById('f-weekday');if(wd)wd.value='0';
   ['f-command','f-script-path','f-script-content','f-comment','f-custom'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const logCb=document.getElementById('f-log');if(logCb){logCb.checked=false;}
+  const logWrap=document.getElementById('log-toggle-wrap');if(logWrap)logWrap.classList.remove('active');;
   document.getElementById('use-custom').checked=false;document.getElementById('f-cmd-type').value='cmd';
   useCustom=false;document.getElementById('custom-cron-row').style.display='none';updateCmdType();
   dayType='daily';monthType='every-month';weekType='every-week';
@@ -902,6 +951,7 @@ function renderJobs(jobs){
     const isOn=job.enabled;
     const label=job.comment||(job.command.length>48?job.command.substring(0,48)+'...':job.command);
     const id=escAttr(job.id);
+    const logBtn=(isOn&&job.log)?'<button class="btn btn-log btn-sm" onclick="viewLog(\''+id+'\')">📋 '+t('btn_log')+'</button>':'';
     return '<div class="job-card '+(isOn?'':'disabled')+'">'+
       '<div class="job-status '+(isOn?'on':'off')+'"></div>'+
       '<div class="job-info"><div class="job-comment">'+escHtml(label)+'</div>'+
@@ -911,6 +961,7 @@ function renderJobs(jobs){
         '<button class="btn btn-ghost btn-sm" onclick="editJob(\''+id+'\')">✏️ '+t('btn_edit')+'</button>'+
         '<button class="btn '+(isOn?'btn-warning':'btn-ghost')+' btn-sm" onclick="toggleJob(\''+id+'\')">'+
           (isOn?'⏸ '+t('btn_disable'):'▶ '+t('btn_enable'))+'</button>'+
+        logBtn+
         '<button class="btn btn-danger btn-sm" onclick="deleteJob(\''+id+'\')">✕</button>'+
       '</div></div>';
   }).join('');
@@ -939,6 +990,52 @@ async function toggleJob(id){
     const data=await res.json();
     if(data.success)loadJobs();else showToast(data.message,'error');
   }catch(e){showToast(e.message,'error');}
+}
+
+// ── Log helpers ───────────────────────────────────────────
+function toggleLogWrap(){
+  const cb=document.getElementById('f-log');
+  cb.checked=!cb.checked;
+  document.getElementById('log-toggle-wrap').classList.toggle('active',cb.checked);
+}
+async function viewLog(id){
+  const job=jobs.find(j=>j.id===id);
+  if(!job||!job.logFile)return;
+  try{
+    const res=await fetch('/api/jobs/read-log',{method:'POST',headers:authHeaders(),body:JSON.stringify({path:job.logFile})});
+    const data=await res.json();
+    if(data.success){
+      showLogModal(job.comment||job.command, data.data||'(空日志)');
+    } else {
+      showToast(data.message||'读取日志失败','error');
+    }
+  }catch(e){showToast(e.message,'error');}
+}
+function showLogModal(title, content){
+  // Remove existing log modal if any
+  const existing=document.getElementById('log-modal');if(existing)existing.remove();
+  const overlay=document.createElement('div');
+  overlay.id='log-modal';
+  overlay.className='modal-overlay open';
+  overlay.innerHTML=
+    '<div class="modal" style="max-width:700px">'+
+      '<div class="modal-header">'+
+        '<div class="modal-title-wrap">'+
+          '<div class="modal-title-icon">📋</div>'+
+          '<div class="modal-title">'+escHtml(title)+'</div>'+
+        '</div>'+
+        '<button class="modal-close" onclick="document.getElementById(\'log-modal\').remove()">✕</button>'+
+      '</div>'+
+      '<div class="modal-body" style="padding:12px 16px">'+
+        '<pre style="font-family:IBM Plex Mono,monospace;font-size:12px;color:var(--text);background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;overflow:auto;max-height:60vh;white-space:pre-wrap;word-break:break-all;line-height:1.7">'+escHtml(content)+'</pre>'+
+      '</div>'+
+      '<div class="modal-footer">'+
+        '<button class="btn btn-ghost btn-sm" onclick="document.getElementById(\'log-modal\').remove()" data-i18n="btn_cancel"></button>'+
+      '</div>'+
+    '</div>';
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
+  document.body.appendChild(overlay);
+  applyI18n();
 }
 
 // ── Helpers ───────────────────────────────────────────────
